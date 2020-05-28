@@ -1,0 +1,42 @@
+sudo dnf install -y tftp tftp-server
+sudo su -c "echo 'in.tftpd: ALL' >> /etc/hosts.allow"
+
+vi /etc/xinet.d/tftp
+
+service tftp
+{
+        socket_type             = dgram
+        protocol                = udp
+        wait                    = yes
+        user                    = root
+        server                  = /usr/sbin/in.tftpd
+        server_args             = -s /tftpboot/
+        disable                 = no
+        per_source              = 11
+        cps                     = 100 2
+}
+
+sudo firewall-cmd --permanent --add-service tftp
+sudo firewall-cmd --reload
+
+sudo systemctl enable tftp
+sudo systemctl start tftp
+sudo systemctl daemon-reload
+
+#test it
+$tftp localhost
+get test
+
+
+
+#####nfs
+disable selinux!
+disable firewalld!
+
+sudo vim /etc/sysconfig/nfs
+
+RPCNFSDARGS="-V 2 --udp"
+
+sudo systemctl restart rpcbind.service nfs-idmap.service nfs-server.service
+
+https://www.server-world.info/en/note?os=Fedora_21&p=nfs

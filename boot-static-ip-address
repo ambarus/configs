@@ -1,0 +1,17 @@
+Fedora 22: Setting a static IP address
+
+vi /etc/sysconfig/network-scripts/ifcfg-em1
+
+UUID="e88f1292-1f87-4576-97aa-bb8b2be34bd3"
+NM_CONTROLLED="yes"
+HWADDR="D8:D3:85:AE:DD:4C"
+BOOTPROTO="static"
+DEVICE="em1"
+ONBOOT="yes"
+IPADDR=192.168.1.2
+NETMASK=255.255.255.0
+BROADCAST=192.168.1.255
+NETWORK=192.168.1.0
+GATEWAY=192.168.1.1
+
+systemctl restart network.service
