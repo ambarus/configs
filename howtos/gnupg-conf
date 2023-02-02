@@ -1,0 +1,30 @@
+//gpg-agent
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpg-connect-agent updatestartuptty /bye
+
+$ gpg --list-secret-keys --with-keygrip
+/home/tudordana/.gnupg/pubring.kbx
+----------------------------------
+sec#  rsa4096 2019-03-30 [SC] [expires: 2032-04-05]
+[cut]
+ssb   rsa2048 2019-03-30 [A]
+      Keygrip = 100F53171C782DD3344A7DFA5E36A8CDAE12A8C4
+
+echo 100F53171C782DD3344A7DFA5E36A8CDAE12A8C4 >> ~/.gnupg/sshcontrol
+cat ~/.gnupg/gpg-agent.conf
+pinentry-program /usr/bin/pinentry-curses
+# set to 30 minutes for regular ttl, and 2 hours for max ttl
+default-cache-ttl 1800
+max-cache-ttl 7200
+enable-ssh-support
+
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpg-connect-agent updatestartuptty /bye
+git clone ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/mtd/linux.git
+Cloning into 'linux'...
+remote: Enumerating objects: 9227742, done.
+^Cfetch-pack: unexpected disconnect while reading sideband packet
+
+//ssh-agent
+eval $(ssh-agent -s)
+ssh-destination
