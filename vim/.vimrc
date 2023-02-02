@@ -85,7 +85,8 @@ set wildmenu
 "file_name Line:row/nb_of_rows, col
 set statusline=%<%f\  "filename
 set statusline+=%w%h%m%r\  "options
-set statusline+=line:%l\/%L,\ col:%c
+set statusline+=line:%l\/%L,\ col:%c%V
+"set statusline=%<%f\ %h%m%r%=%-14.(line:%l,col:%c%V%)\ %P
 
 syntax on
 
