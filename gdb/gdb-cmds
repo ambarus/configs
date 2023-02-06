@@ -1,0 +1,33 @@
+gdb ../builds/build-syzkaller/vmlinux
+target remote :1234
+hb start_kernel
+c
+disassemble start_kernel
+tui enable // can add hb on file and line
+layout src
+p variable //print variable
+// check call stack with up command
+
+check call stack with up command
+
+continue - continue executing the program from a breakpoijnt
+step - step one line of code, stepping into functions
+next - step one line of code, stepping over function
+finish - run to the end of current function
+run -0 runb the program from the start (does not work with remote debugging)
+print i
+set some_var=new_value
+
+break service.cpp:45
+
+addr2line -f -e ../builds/build-syzkaller/vmlinux 0x0
+
+atudor@alba:~/work/aosp$ ./scripts/faddr2line ../builds/build-syzkaller/vmlinux z_erofs_decompressqueue_endio+0x02
+z_erofs_decompressqueue_endio+0x02/0x520:
+z_erofs_decompressqueue_endio at fs/erofs/zdata.c:1294
+
+bt - backtrace
+frame - to jump to a frame from backtrace
+
+x command
+Displays the memory contents at a given address using the specified format.
