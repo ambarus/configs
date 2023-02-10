@@ -1,0 +1,4 @@
+target remote :1234
+hb start_kernel
+c
+#run it with gdb ../builds/build-syzkaller/vmlinux -x gdb.kernel
