@@ -48,6 +48,7 @@ set bs=2
 "set columns=80
 "use colors that look good on a dark background
 set background=dark
+colorscheme jellybeans
 "minimal number of screen lines to keep abave and below the cursor
 set so=5
 "briefly jump to the matching bracket
