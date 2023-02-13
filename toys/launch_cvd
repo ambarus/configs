@@ -1,0 +1,71 @@
+#!/bin/bash
+# SPDX-License-Identifier: Apache-2.0
+# Author: Tudor Ambarus <tudor.ambarus@linaro.org>
+
+set -e   # Exit on any error
+#set -x   # Uncomment for debug
+
+print_blue()
+{
+    echo -e "\e[01;34m$@\e[0m"
+}
+
+print_red()
+{
+    echo -e "\e[01;31m$@ \e[0m"
+}
+
+_usage="
+Usage: $(basename $0) [options]
+
+Options:
+    -k, --kernel        common-android12-5.4, common-android13-5.10,
+                        common-android-mainline,
+    -h, --help          Display this help message and exit.
+"
+
+function usage()
+{
+    echo "$_usage"
+    exit 1
+}
+
+#using : after a switch variable means it requires some input (ie, t: requires something after t to validate while h requires nothing.
+while getopts “hk:” OPTION
+do
+    case $OPTION in
+	kernel|k)
+	    KERNEL=$OPTARG
+	    ;;
+	help|h)
+            usage
+            ;;
+	?)
+	    print_red "ERROR: Unrecognised argument: $OPTION"
+	    usage
+	    ;;
+    esac
+done
+
+BOOTLOADER=${PWD}/../work/u-boot-mainline/out/u-boot/dist/u-boot.rom
+if [ ${KERNEL} = "common-android12-5.4" ]; then
+    KERNEL_PATH=${PWD}/../work/common-android12-5.4/out/android12-5.4/dist/bzImage
+    INITRAMFS_PATH=${PWD}/../initramfs.img
+elif [ ${KERNEL} = "common-android13-5.10" ]; then
+    KERNEL_PATH=${PWD}/../work/common-android13-5.10/out/android13-5.10/dist/bzImage
+    INITRAMFS_PATH=${PWD}/../work/common-android13-5.10/out/android13-5.10/dist/initramfs.img 
+elif [ ${KERNEL} = "common-android-mainline" ]; then
+    KERNEL_PATH=${PWD}/../work/common-android-mainline/out/virtual_device_x86_64/dist/bzImage
+    INITRAMFS_PATH=${PWD}/../common-android-mainline/out/virtual_device_x86_64/dist/initramfs.img 
+else
+    usage
+fi
+
+source build/envsetup.sh
+lunch aosp_cf_x86_64_phone-userdebug
+
+launch_cvd                                              \
+    -bootloader "${BOOTLOADER}"                         \
+    -pause_in_bootloader -console=true                  \
+    -kernel_path="${KERNEL_PATH}"                       \
+    -initramfs_path="${INITRAMFS_PATH}"
