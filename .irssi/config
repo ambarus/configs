@@ -293,4 +293,12 @@ settings = {
     user_name = "tambarus";
     nick = "tambarus";
   };
+  "fe-text" = { actlist_sort = "refnum"; };
+  "fe-common/core" = { autolog = "yes"; };
+};
+logs = {
+  "~/irclogs/tkuw.log" = {
+    level = "MSGS";
+    items = ( { type = "target"; name = "tkuw"; } );
+  };
 };
