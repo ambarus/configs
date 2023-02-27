@@ -112,18 +112,16 @@ chatnets = {
   };
   SILC = { type = "SILC"; };
   Ubuntu = { type = "IRC"; };
-  liberachat = {
-    type = "IRC";
-  };
+  liberachat = { type = "IRC"; };
 };
 
 channels = (
-  { name = "#panic"; chatnet = "Google"; autojoin = "Yes"; },
+  { name = "#panic"; chatnet = "Google"; autojoin = "No"; },
   { name = "#irssi"; chatnet = "ircnet"; autojoin = "No"; },
   { name = "silc"; chatnet = "silc"; autojoin = "No"; },
-  { name = "#xfs"; chatnet = "OFTC"; autojoin = "yes"; },
-  { name = "#ext4"; chatnet = "OFTC"; autojoin = "yes"; },
-  { name = "#mtd"; chatnet = "OFTC"; autojoin = "yes"; }
+  { name = "#xfs"; chatnet = "OFTC"; autojoin = "no"; },
+  { name = "#ext4"; chatnet = "OFTC"; autojoin = "no"; },
+  { name = "#mtd"; chatnet = "OFTC"; autojoin = "no"; }
 );
 
 aliases = {
